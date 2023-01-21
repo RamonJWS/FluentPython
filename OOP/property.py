@@ -13,16 +13,14 @@ class EmployeeGood:
     the programme will go into a recursive loop trying to update the attribute that's being set (don't have that issue
     here see: https://docs.python.org/3/library/functions.html#property for more details).
 
-    @property decorator allows for methods to be called like attributes, note how it doesn't actually set the value
-    as a new instance attribute.
+    @property decorator allows for methods to be called like attributes, if we also add the @<foo>.setter decorator then
+    we can set the value and update other instance attribute values at the same time. Note just using the @property
+    decorator won't allow us to set instance attribute.
     """
     def __init__(self, first_name, last_name):
         self.first_name = first_name
         self.last_name = last_name
-
-    @property
-    def email(self):
-        return self.first_name + '.' + self.last_name + '@gmail.com'
+        self.email = self.first_name + '.' + self.last_name + '@gmail.com'
 
     @property
     def fullname(self):
@@ -33,6 +31,7 @@ class EmployeeGood:
         first, last = value.split(' ')
         self.first_name = first
         self.last_name = last
+        self.email = first + '.' + last + '@gmail.com'
 
 
 a = EmployeeBad('john', 'doe')
